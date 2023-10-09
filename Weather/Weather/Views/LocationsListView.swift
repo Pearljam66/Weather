@@ -8,8 +8,18 @@
 import SwiftUI
 
 struct LocationsListView: View {
+    var locations: [Location] = Location.previewLocations
+
     var body: some View {
-        Text("Hello, World!")
+        NavigationView {
+            VStack {
+                List {
+                    ForEach(locations, id: \.id) { location in
+                        LocationRow(location: location)
+                    }
+                }
+            }
+        }
     }
 }
 

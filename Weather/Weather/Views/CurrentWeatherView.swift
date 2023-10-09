@@ -20,6 +20,7 @@ struct CurrentWeatherView: View {
     @State var stateText: String = "Loading.."
 
     @State var currentWeather: CurrentWeather?
+
     var body: some View {
         NavigationView {
             VStack(alignment: .center) {
@@ -52,6 +53,7 @@ struct CurrentWeatherView: View {
                     }
                     Spacer()
                     Divider()
+                    DataAttributionView(weatherAttribute: attribution)
                 } else {
                     Text(stateText)
                 }
@@ -71,6 +73,7 @@ struct CurrentWeatherView: View {
             Task.detached {
                 isLoading = false
                 currentWeather = await weatherServiceHelper.currentWeather(for: currentLocation)
+                attribution = await weatherServiceHelper.weatherAttribution()
                 stateText = ""
             }
         } else {
